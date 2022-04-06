@@ -58,196 +58,10 @@
               >
             </li>
           </ul>
-
           <!-- Login Form -->
-          <ValidationObserver v-slot="{ handleSubmit }">
-            <form
-              v-show="tab === 'login'"
-              @submit.prevent="handleSubmit(onSubmitLogin)"
-            >
-              <!-- Email -->
-              <div class="mb-3">
-                <label class="inline-block mb-2">Email</label>
-                <ValidationProvider
-                  name="Email"
-                  rules="required|email"
-                  v-slot="{ errors }"
-                >
-                  <input
-                    type="email"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                    placeholder="Enter Email"
-                    v-model="loginFormData.email"
-                  />
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <!-- Password -->
-              <div class="mb-3">
-                <label class="inline-block mb-2">Password</label>
-                <ValidationProvider
-                  name="Password"
-                  rules="required|max:12|min:6"
-                  v-slot="{ errors }"
-                >
-                  <input
-                    type="password"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                    placeholder="Password"
-                    v-model="loginFormData.password"
-                  />
-
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <button
-                type="submit"
-                class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-              >
-                Submit
-              </button>
-            </form>
-          </ValidationObserver>
-
+          <login-form v-show="tab === 'login'"></login-form>
           <!-- Registration Form -->
-          <ValidationObserver v-slot="{ handleSubmit }">
-            <form
-              v-show="tab === 'register'"
-              @submit.prevent="handleSubmit(onSubmitRegister)"
-            >
-              <!-- Name -->
-              <div class="mb-3">
-                <label class="inline-block mb-2">Name</label>
-                <ValidationProvider
-                  name="Name"
-                  rules="required"
-                  v-slot="{ errors }"
-                >
-                  <input
-                    type="text"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                    placeholder="Enter Name"
-                    v-model="registerFormData.name"
-                  />
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <!-- Email -->
-              <div class="mb-3">
-                <label class="inline-block mb-2">Email</label>
-                <ValidationProvider
-                  name="Email"
-                  rules="required|email"
-                  v-slot="{ errors }"
-                >
-                  <input
-                    type="email"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                    placeholder="Enter Email"
-                    v-model="registerFormData.email"
-                  />
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <!-- Age -->
-              <div class="mb-3">
-                <label class="inline-block mb-2">Age</label>
-                <ValidationProvider
-                  name="Age"
-                  rules="required|digits:2"
-                  v-slot="{ errors }"
-                >
-                  <input
-                    v-model="registerFormData.age"
-                    type="number"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                  />
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <!-- Password -->
-              <div class="mb-3">
-                <label class="inline-block mb-2">Password</label>
-                <ValidationProvider
-                  name="Password"
-                  rules="required|max:12|min:6"
-                  v-slot="{ errors }"
-                >
-                  <input
-                    type="password"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                    placeholder="Password"
-                    v-model="registerFormData.password"
-                  />
-
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <!-- Confirm Password -->
-              <div class="mb-3">
-                <label class="inline-block mb-2">Confirm Password</label>
-                <ValidationProvider
-                  name="Confrim Password"
-                  rules="required|confirmed:Password"
-                  v-slot="{ errors }"
-                >
-                  <input
-                    type="password"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                    placeholder="Confirm Password"
-                    v-model="registerFormData.confirmedPassword"
-                  />
-
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <!-- Country -->
-              <div class="mb-3">
-                <label class="inline-block mb-2">Country</label>
-                <ValidationProvider
-                  name="Country"
-                  rules="required"
-                  v-slot="{ errors }"
-                >
-                  <select
-                    v-model="registerFormData.country"
-                    class="block w-full py-1.5 px-3 text-gray-800 border border-gray-300 transition duration-500 focus:outline-none focus:border-black rounded"
-                  >
-                    <option value="CMR">CMR</option>
-                    <option value="IT">IT</option>
-                    <option value="USA">USA</option>
-                  </select>
-
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <!-- TOS -->
-              <div class="mb-3 pl-6">
-                <ValidationProvider
-                  name="Accept Terms"
-                  rules="required"
-                  v-slot="{ errors }"
-                >
-                  <div>
-                    <input
-                      type="checkbox"
-                      class="w-4 h-4 float-left -ml-6 mt-1 rounded"
-                      v-model="registerFormData.acceptTerms"
-                    />
-                    <label class="inline-block">Terms of service</label>
-                  </div>
-
-                  <span class="text-red-500">{{ errors[0] }}</span>
-                </ValidationProvider>
-              </div>
-              <button
-                type="submit"
-                class="block w-full bg-purple-600 text-white py-1.5 px-3 rounded transition hover:bg-purple-700"
-              >
-                Submit
-              </button>
-            </form>
-          </ValidationObserver>
+          <register-form v-show="tab === 'register'"></register-form>
         </div>
       </div>
     </div>
@@ -255,42 +69,20 @@
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import RegisterForm from "./RegisterForm.vue";
+import LoginForm from "./LoginForm.vue";
 
 export default {
+  components: { LoginForm, RegisterForm },
   name: "AppAuth",
   data() {
     return {
       tab: "login",
-      registerFormData: {
-        name: "",
-        email: "",
-        password: "",
-        confirmedPassword: "",
-        age: null,
-        country: "",
-        termOfServiceChecked: null,
-        acceptTerms: null,
-      },
-      loginFormData: {
-        email: "",
-        password: "",
-      },
     };
   },
 
   methods: {
     ...mapActions("auth", ["toggleAuthModalShow"]),
-
-    onSubmitLogin() {
-      console.log(this.loginFormData);
-    },
-
-    onSubmitRegister() {
-      if (this.registerFormData.acceptTerms === false) {
-        this.registerFormData.acceptTerms = null;
-      }
-      console.log(this.registerFormData);
-    },
   },
   computed: {
     ...mapGetters("auth", ["getAuthModalShow"]),
